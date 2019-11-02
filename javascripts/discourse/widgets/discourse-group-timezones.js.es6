@@ -14,7 +14,7 @@ export default createWidget("discourse-group-timezones", {
 
   defaultState(attrs) {
     const members = attrs.members || [];
-    const groupedTimezones = [];
+    let groupedTimezones = [];
 
     members.forEach(member => {
       const timezone = member.timezone;
@@ -34,6 +34,8 @@ export default createWidget("discourse-group-timezones", {
         const offset = moment.tz(moment.utc(), timezone).utcOffset();
 
         groupedTimezones.push({
+          type: "discourse-group-timezone",
+          moment: moment.tz(timezone),
           identifier,
           formatedTime: moment.tz(timezone).format("LT"),
           formatedTimezone: this._formatTimezone(timezone),
@@ -50,15 +52,35 @@ export default createWidget("discourse-group-timezones", {
       }
     });
 
+    groupedTimezones = groupedTimezones.sortBy("offset");
+
+    let newDayIndex = 0;
+    groupedTimezones.forEach((groupedTimezone, index) => {
+      if (index > 0) {
+        if (
+          groupedTimezones[index - 1].moment.format("dddd") !==
+          groupedTimezone.moment.format("dddd")
+        ) {
+          newDayIndex = index;
+        }
+      }
+    });
+
+    groupedTimezones.splice(newDayIndex, 0, {
+      type: "discourse-group-timezone-new-day",
+      beforeDate: groupedTimezones[newDayIndex - 1].moment.format("dddd"),
+      afterDate: groupedTimezones[newDayIndex].moment.format("dddd")
+    });
+
     return {
-      groupedTimezones: groupedTimezones.sortBy("offset")
+      groupedTimezones
     };
   },
 
   template: hbs`
     {{#each this.state.groupedTimezones as |groupedTimezone|}}
       {{attach
-        widget="discourse-group-timezone"
+        widget=groupedTimezone.type
         attrs=(hash
           groupedTimezone=groupedTimezone
         )

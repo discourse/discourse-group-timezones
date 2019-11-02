@@ -3,6 +3,26 @@
   flex-direction: row;
   flex-wrap: wrap;
 
+  .group-timezone-new-day {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0.5em 0.5em 0;
+    padding: 0.5em;
+    width: 100px;
+    align-items: center;
+    justify-content: space-between;
+    background: $primary-very-low;
+    color: $primary-high;
+
+    .before {
+      margin-right: auto;
+    }
+
+    .after {
+      margin-left: auto;
+    }
+  }
+
   .group-timezone {
     display: flex;
     flex-direction: column;

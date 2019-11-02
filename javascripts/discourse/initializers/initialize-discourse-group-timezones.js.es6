@@ -56,6 +56,7 @@ export default {
       api.decorateCooked(attachGroupTimezones, {
         id: "discourse-group-timezones"
       });
+
       api.cleanupStream(cleanUp);
     });
   }
