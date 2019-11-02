@@ -3,17 +3,22 @@
   flex-direction: row;
   flex-wrap: wrap;
 
+  .group-timezone,
   .group-timezone-new-day {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     padding: 0.5em;
     width: 20%;
+    border: 0.25em solid white;
+    min-width: 100px;
+  }
+
+  .group-timezone-new-day {
     align-items: center;
     justify-content: space-between;
     background: $primary-very-low;
     color: $primary-high;
-    border: 0.25em solid white;
 
     .before {
       margin-right: auto;
@@ -25,12 +30,6 @@
   }
 
   .group-timezone {
-    border: 0.25em solid white;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    padding: 0.5em;
-    width: 20%;
     background: lighten($success, 60%);
 
     &:first-child {
