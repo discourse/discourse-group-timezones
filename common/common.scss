@@ -1,0 +1,51 @@
+.group-timezones {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  .group-timezone {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0.5em 0.5em 0;
+    padding: 0.5em;
+    width: 100px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &.not-in-working-hours {
+      background: lighten($danger, 40%);
+    }
+
+    .info {
+      display: flex;
+      flex-direction: column;
+
+      .timezone {
+        text-transform: uppercase;
+        font-size: $font-down-2;
+        font-weight: 700;
+        color: $primary-medium;
+      }
+
+      .time {
+        font-weight: 700;
+      }
+    }
+
+    .members {
+      padding: 0;
+      margin: 1em 0;
+
+      .member {
+        list-style: none;
+        display: inline-flex;
+      }
+    }
+  }
+}
