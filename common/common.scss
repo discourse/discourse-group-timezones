@@ -4,15 +4,16 @@
   flex-wrap: wrap;
 
   .group-timezone-new-day {
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    margin: 0 0.5em 0.5em 0;
     padding: 0.5em;
-    width: 100px;
+    width: 20%;
     align-items: center;
     justify-content: space-between;
     background: $primary-very-low;
     color: $primary-high;
+    border: 0.25em solid white;
 
     .before {
       margin-right: auto;
@@ -24,11 +25,12 @@
   }
 
   .group-timezone {
+    border: 0.25em solid white;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    margin: 0 0.5em 0.5em 0;
     padding: 0.5em;
-    width: 100px;
+    width: 20%;
     background: lighten($success, 60%);
 
     &:first-child {
