@@ -72,13 +72,13 @@ export default createWidget("discourse-group-timezones", {
   },
 
   _formatOffset(offset) {
-    if (offset > 0) {
-      offset = (offset / 60).toString();
-      return `${offset.padStart("0")}:00`;
-    } else {
-      offset = Math.abs(offset / 60).toString();
-      return `-${offset.padStart("0")}:00`;
-    }
+    const sign = Math.sign(offset) === 1 ? "+" : "-";
+    offset = Math.abs(offset);
+    let hours = Math.floor(offset / 60).toString();
+    hours = hours.length === 1 ? `0${hours}` : hours;
+    let minutes = (offset % 60).toString();
+    minutes = minutes.length === 1 ? `${minutes}0` : minutes;
+    return `${sign}${hours}:${minutes}`;
   },
 
   _userLink({ avatar_template, usernameUrl, username } = member) {
