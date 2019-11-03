@@ -32,6 +32,8 @@ export default {
             throw "[group] attribute is necessary when using group-timezones.";
           }
 
+          const size = groupTimezone.getAttribute("data-size") || "medium";
+
           ajax(`/groups/${group}/members.json?limit=50`, {
             type: "GET",
             cache: false
@@ -42,7 +44,8 @@ export default {
                 register,
                 {
                   id: post.id,
-                  members: group.members
+                  members: group.members,
+                  size
                 }
               );
               glue.appendTo(groupTimezone);

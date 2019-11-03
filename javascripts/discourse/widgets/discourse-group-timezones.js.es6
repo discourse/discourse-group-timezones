@@ -12,6 +12,10 @@ export default createWidget("discourse-group-timezones", {
 
   buildKey: attrs => `group-timezones-${attrs.id}`,
 
+  buildClasses(attrs) {
+    return attrs.size;
+  },
+
   defaultState(attrs) {
     const members = attrs.members || [];
     let groupedTimezones = [];

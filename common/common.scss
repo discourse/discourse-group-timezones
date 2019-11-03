@@ -6,15 +6,18 @@
   height: 300px;
   box-sizing: border-box;
 
-  &[data-size="small"] {
+  &[data-size="small"],
+  &.small {
     height: 150px;
   }
 
-  &[data-size="medium"] {
+  &[data-size="medium"],
+  &.medium {
     height: 300px;
   }
 
-  &[data-size="large"] {
+  &[data-size="large"],
+  &.large {
     height: 600px;
   }
 }
