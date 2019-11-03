@@ -13,12 +13,12 @@
 
   &[data-size="medium"],
   &.medium {
-    height: 300px;
+    height: calc(300px + 0.25em);
   }
 
   &[data-size="large"],
   &.large {
-    height: 600px;
+    height: calc(600px + 0.25em * 3);
   }
 }
 
@@ -33,6 +33,7 @@
   grid-template-columns: repeat(auto-fill, 33%);
   grid-auto-rows: 150px;
   grid-gap: 0.25em;
+  box-sizing: border-box;
 
   .group-timezone,
   .group-timezone-new-day {
