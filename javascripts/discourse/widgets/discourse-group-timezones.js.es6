@@ -54,7 +54,7 @@ export default createWidget("discourse-group-timezones", {
           inWorkingHours:
             momentTimezone.hours() >= settings.working_day_start_hour &&
             momentTimezone.hours() <= settings.working_day_end_hour &&
-            workingDays.includes(moment().isoWeekday()),
+            workingDays.includes(momentTimezone.isoWeekday()),
           formatedOffset: this._formatOffset(offset),
           members: [member]
         });
