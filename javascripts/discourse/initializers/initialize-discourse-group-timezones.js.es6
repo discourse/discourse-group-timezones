@@ -28,6 +28,10 @@ export default {
 
         $groupTimezones.each((idx, groupTimezone) => {
           const group = groupTimezone.getAttribute("data-group");
+          if (!group) {
+            throw "[group] attribute is necessary when using group-timezones.";
+          }
+
           ajax(`/groups/${group}/members.json?limit=50`, {
             type: "GET",
             cache: false
