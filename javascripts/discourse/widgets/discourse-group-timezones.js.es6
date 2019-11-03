@@ -36,15 +36,12 @@ export default createWidget("discourse-group-timezones", {
         groupedTimezone.members.push(member);
       } else {
         const offset = moment.tz(moment.utc(), timezone).utcOffset();
-        const workingDays = settings.working_days.split("|").filter(Boolean);
         const momentTimezone = moment.tz(timezone);
-
-        console.log(
-          momentTimezone.hours(),
-          settings,
-          momentTimezone.format("dddd"),
-          workingDays
-        );
+        const getIsoWeekday = day => moment.weekdays().indexOf(day) || 7;
+        const workingDays = settings.working_days
+          .split("|")
+          .filter(Boolean)
+          .map(x => getIsoWeekday(x));
 
         groupedTimezones.push({
           type: "discourse-group-timezone",
@@ -57,7 +54,7 @@ export default createWidget("discourse-group-timezones", {
           inWorkingHours:
             momentTimezone.hours() >= settings.working_day_start_hour &&
             momentTimezone.hours() <= settings.working_day_end_hour &&
-            workingDays.includes(momentTimezone.format("dddd")),
+            workingDays.includes(getIsoWeekday(momentTimezone.format("dddd"))),
           formatedOffset: this._formatOffset(offset),
           members: [member]
         });
