@@ -38,6 +38,14 @@ export default createWidget("discourse-group-timezones", {
         const offset = moment.tz(moment.utc(), timezone).utcOffset();
         const workingDays = settings.working_days.split("|").filter(Boolean);
         const momentTimezone = moment.tz(timezone);
+
+        console.log(
+          momentTimezone.hours(),
+          settings,
+          momentTimezone.format("dddd"),
+          workingDays
+        );
+
         groupedTimezones.push({
           type: "discourse-group-timezone",
           moment: momentTimezone,
