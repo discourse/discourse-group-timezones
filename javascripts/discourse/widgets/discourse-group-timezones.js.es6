@@ -66,11 +66,13 @@ export default createWidget("discourse-group-timezones", {
       }
     });
 
-    groupedTimezones.splice(newDayIndex, 0, {
-      type: "discourse-group-timezone-new-day",
-      beforeDate: groupedTimezones[newDayIndex - 1].moment.format("dddd"),
-      afterDate: groupedTimezones[newDayIndex].moment.format("dddd")
-    });
+    if (groupedTimezones[newDayIndex - 1]) {
+      groupedTimezones.splice(newDayIndex, 0, {
+        type: "discourse-group-timezone-new-day",
+        beforeDate: groupedTimezones[newDayIndex - 1].moment.format("dddd"),
+        afterDate: groupedTimezones[newDayIndex].moment.format("dddd")
+      });
+    }
 
     return {
       groupedTimezones
