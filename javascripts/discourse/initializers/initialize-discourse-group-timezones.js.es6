@@ -34,6 +34,8 @@ export default {
 
           const size = groupTimezone.getAttribute("data-size") || "medium";
 
+          groupTimezone.innerHTML = "<div class='spinner'></div>";
+
           ajax(`/groups/${group}/members.json?limit=50`, {
             type: "GET",
             cache: false
