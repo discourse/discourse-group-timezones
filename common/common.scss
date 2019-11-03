@@ -22,10 +22,17 @@
   }
 }
 
+.desktop-view {
+  .group-timezones {
+    grid-template-columns: repeat(auto-fill, 20%);
+  }
+}
+
 .group-timezones {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 33%);
+  grid-auto-rows: 150px;
+  grid-gap: 0.25em;
 
   .group-timezone,
   .group-timezone-new-day {
@@ -33,10 +40,6 @@
     display: flex;
     flex-direction: column;
     padding: 0.5em;
-    width: 20%;
-    border: 0.1em solid white;
-    min-width: 100px;
-    align-self: flex-start;
   }
 
   .group-timezone-new-day {
