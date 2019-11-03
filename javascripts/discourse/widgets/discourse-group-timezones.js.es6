@@ -32,20 +32,20 @@ export default createWidget("discourse-group-timezones", {
         groupedTimezone.members.push(member);
       } else {
         const offset = moment.tz(moment.utc(), timezone).utcOffset();
-
+        const workingDays = settings.working_days.split("|").filter(Boolean);
+        const momentTimezone = moment.tz(timezone);
         groupedTimezones.push({
           type: "discourse-group-timezone",
-          moment: moment.tz(timezone),
+          moment: momentTimezone,
           identifier,
-          formatedTime: moment.tz(timezone).format("LT"),
+          formatedTime: momentTimezone.format("LT"),
           formatedTimezone: this._formatTimezone(timezone),
           timezone,
           offset,
           inWorkingHours:
-            moment.tz(timezone).hours() >= 8 &&
-            moment.tz(timezone).hours() <= 17 &&
-            moment.tz(timezone).isoWeekday() !== 6 &&
-            moment.tz(timezone).isoWeekday() !== 7,
+            momentTimezone.hours() >= settings.working_day_start_hour &&
+            momentTimezone.hours() <= settings.working_day_end_hour &&
+            workingDays.includes(momentTimezone.format("dddd")),
           formatedOffset: this._formatOffset(offset),
           members: [member]
         });
