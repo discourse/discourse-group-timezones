@@ -37,7 +37,9 @@ export default createWidget("discourse-group-timezones", {
       } else {
         const offset = moment.tz(moment.utc(), timezone).utcOffset();
         const momentTimezone = moment.tz(timezone);
-        const getIsoWeekday = day => moment.weekdays().indexOf(day) || 7;
+        const enMoment = moment().locale("en");
+        const getIsoWeekday = day =>
+          enMoment.localeData()._weekdays.indexOf(day) || 7;
         const workingDays = settings.working_days
           .split("|")
           .filter(Boolean)
