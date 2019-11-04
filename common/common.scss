@@ -25,6 +25,7 @@
 .group-timezones {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  grid-template-rows: max-content;
   grid-gap: 0.25em;
   box-sizing: border-box;
 
