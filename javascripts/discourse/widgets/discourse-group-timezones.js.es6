@@ -51,7 +51,6 @@ export default createWidget("discourse-group-timezones", {
           moment: momentTimezone,
           identifier,
           formatedTime: momentTimezone.format("LT"),
-          formatedTimezone: this._formatTimezone(timezone),
           timezone,
           offset,
           inWorkingHours:
@@ -101,11 +100,6 @@ export default createWidget("discourse-group-timezones", {
       }}
     {{/each}}
   `,
-
-  _formatTimezone(timezone) {
-    const zones = timezone.replace("_", " ").split("/");
-    return zones.length === 2 ? zones[1] : zones[0];
-  },
 
   _formatOffset(offset) {
     const sign = Math.sign(offset) === 1 ? "+" : "-";

@@ -13,7 +13,6 @@ export default createWidget("discourse-group-timezone", {
   template: hbs`
     <div class="info">
       <span class="time">{{attrs.groupedTimezone.formatedTime}}</span>
-      <span class="timezone">{{attrs.groupedTimezone.formatedTimezone}}</span>
       <span class="offset">{{attrs.groupedTimezone.formatedOffset}}</span>
     </div>
     <ul class="members">
