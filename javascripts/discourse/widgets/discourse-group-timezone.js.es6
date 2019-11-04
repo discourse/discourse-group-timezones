@@ -12,15 +12,18 @@ export default createWidget("discourse-group-timezone", {
 
   template: hbs`
     <div class="info">
-      <span class="time">{{this.attrs.groupedTimezone.formatedTime}}</span>
-      <span class="timezone">{{this.attrs.groupedTimezone.formatedTimezone}}</span>
-      <span class="offset">{{this.attrs.groupedTimezone.formatedOffset}}</span>
+      <span class="time">{{attrs.groupedTimezone.formatedTime}}</span>
+      <span class="timezone">{{attrs.groupedTimezone.formatedTimezone}}</span>
+      <span class="offset">{{attrs.groupedTimezone.formatedOffset}}</span>
     </div>
     <ul class="members">
-      {{#each this.attrs.groupedTimezone.members as |member|}}
-        <li class="member">
-          {{member.userLink}}
-        </li>
+      {{#each attrs.groupedTimezone.members as |member|}}
+        {{attach
+          widget="discourse-group-timezones-member"
+          attrs=(hash
+            member=member
+          )
+        }}
       {{/each}}
     </ul>
   `

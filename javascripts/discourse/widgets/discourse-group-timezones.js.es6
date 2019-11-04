@@ -31,6 +31,7 @@ export default createWidget("discourse-group-timezones", {
       const groupedTimezone = groupedTimezones.findBy("identifier", identifier);
 
       member.userLink = this._userLink(member);
+      member.onHoliday = attrs.usersOnHoliday.includes(member.username);
 
       if (groupedTimezone) {
         groupedTimezone.members.push(member);

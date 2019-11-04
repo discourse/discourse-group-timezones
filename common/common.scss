@@ -94,8 +94,23 @@
       padding: 0;
       margin: 1em 0;
 
-      .member {
-        margin: 0.05em;
+      .group-timezones-member {
+        position: relative;
+
+        .emoji {
+          position: absolute;
+          top: -8px;
+          right: -8px;
+          width: 18px;
+          height: 18px;
+          background: whitesmoke;
+          border-radius: 9px;
+          padding: 0.25em;
+          box-sizing: border-box;
+          box-shadow: 1px 1px 2px #888;
+        }
+
+        margin: 0.25em;
         list-style: none;
         display: inline-flex;
       }

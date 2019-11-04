@@ -10,6 +10,8 @@ export default {
   initialize() {
     withPluginApi("0.8.7", api => {
       const register = getRegister(api);
+      const usersOnHoliday =
+        api.container.lookup("site:main").users_on_holiday || [];
       let _glued = [];
       let _interval = null;
 
@@ -47,6 +49,7 @@ export default {
                 {
                   id: post.id,
                   members: group.members,
+                  usersOnHoliday,
                   size
                 }
               );
