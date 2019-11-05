@@ -19,6 +19,13 @@ export default createWidget("discourse-group-timezones-time-traveler", {
   },
 
   onChangeOffset(offset) {
+    if (this.attrs.localTimeOffset === 0) {
+      const minutes = this.attrs.localTime.minutes();
+      if (minutes + offset > 30) {
+        offset = 30 - minutes + offset;
+      }
+    }
+
     this.sendWidgetAction(
       "onChangeLocalTime",
       this.attrs.localTimeOffset + offset
