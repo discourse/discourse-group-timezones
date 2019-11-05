@@ -10,7 +10,6 @@ export default createWidget("discourse-group-timezones-member", {
   },
 
   transform(attrs) {
-    console.log(Discourse.getURL(emojiUrlFor("desert_island")));
     return {
       emojiUrl: Discourse.getURL(emojiUrlFor("desert_island"))
     };

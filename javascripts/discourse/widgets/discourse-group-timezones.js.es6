@@ -17,6 +17,17 @@ export default createWidget("discourse-group-timezones", {
   },
 
   defaultState(attrs) {
+    return {
+      localTimeOffset: 0,
+      localTime: moment()
+    };
+  },
+
+  onChangeLocalTime(offset) {
+    this.state.localTimeOffset = offset;
+  },
+
+  transform(attrs, state) {
     const members = attrs.members || [];
     let groupedTimezones = [];
 
@@ -48,7 +59,7 @@ export default createWidget("discourse-group-timezones", {
 
         groupedTimezones.push({
           type: "discourse-group-timezone",
-          moment: momentTimezone,
+          moment: momentTimezone.add(state.localTimeOffset, "minutes"),
           identifier,
           formatedTime: momentTimezone.format("LT"),
           timezone,
@@ -86,19 +97,30 @@ export default createWidget("discourse-group-timezones", {
     }
 
     return {
-      groupedTimezones
+      groupedTimezones,
+      localTime: moment()
     };
   },
 
   template: hbs`
-    {{#each this.state.groupedTimezones as |groupedTimezone|}}
-      {{attach
-        widget=groupedTimezone.type
-        attrs=(hash
-          groupedTimezone=groupedTimezone
-        )
-      }}
-    {{/each}}
+    {{attach
+      widget="discourse-group-timezones-header"
+      attrs=(hash
+        group=attrs.group
+        localTime=this.transformed.localTime
+        localTimeOffset=state.localTimeOffset
+      )
+    }}
+    <div class="group-timezones-body">
+      {{#each this.transformed.groupedTimezones as |groupedTimezone|}}
+        {{attach
+          widget=groupedTimezone.type
+          attrs=(hash
+            groupedTimezone=groupedTimezone
+          )
+        }}
+      {{/each}}
+    </div>
   `,
 
   _formatOffset(offset) {

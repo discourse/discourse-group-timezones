@@ -41,16 +41,17 @@ export default {
           ajax(`/groups/${group}/members.json?limit=50`, {
             type: "GET",
             cache: false
-          }).then(group => {
-            if (group && group.members) {
+          }).then(groupResult => {
+            if (groupResult && groupResult.members) {
               const glue = new WidgetGlue(
                 "discourse-group-timezones",
                 register,
                 {
                   id: post.id,
-                  members: group.members,
+                  members: groupResult.members,
                   usersOnHoliday,
-                  size
+                  size,
+                  group
                 }
               );
               glue.appendTo(groupTimezone);

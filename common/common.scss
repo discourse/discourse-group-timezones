@@ -5,6 +5,7 @@
   overflow-y: auto;
   height: 300px;
   box-sizing: border-box;
+  flex-direction: column;
 
   &[data-size="small"],
   &.small {
@@ -22,12 +23,33 @@
   }
 }
 
-.group-timezones {
+.group-timezones-header {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5em;
+
+  .title {
+    font-weight: bold;
+    text-transform: capitalize;
+  }
+}
+
+.group-timezones-body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   grid-template-rows: auto;
   grid-gap: 0.25em;
   box-sizing: border-box;
+
+  .group-timezones-header {
+    .title {
+      font-weight: 700;
+    }
+    .group-timezones-time-traveler {
+    }
+  }
 
   .group-timezone,
   .group-timezone-new-day {
