@@ -107,8 +107,11 @@ export default createWidget("discourse-group-timezones", {
     let hours = Math.floor(offset / 60).toString();
     hours = hours.length === 1 ? `0${hours}` : hours;
     let minutes = (offset % 60).toString();
-    minutes = minutes.length === 1 ? `${minutes}0` : minutes;
-    return `${sign}${hours}:${minutes}`;
+    minutes = minutes.length === 1 ? `:${minutes}0` : `:${minutes}`;
+    return `${sign}${hours.replace(/^0(\d)/, "$1")}${minutes.replace(
+      /:00$/,
+      ""
+    )}`;
   },
 
   _userLink({ avatar_template, usernameUrl, username } = member) {
