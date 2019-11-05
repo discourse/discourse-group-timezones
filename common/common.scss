@@ -67,8 +67,8 @@
   .group-timezone-new-day {
     align-items: center;
     justify-content: space-between;
-    background: $primary-very-low;
-    color: $primary-high;
+    background: #222;
+    color: #ddd;
 
     .before {
       margin-right: auto;
@@ -82,8 +82,6 @@
   }
 
   .group-timezone {
-    background: lighten($success, 60%);
-
     &:first-child {
       margin-left: 0;
     }
@@ -92,8 +90,15 @@
       margin-right: 0;
     }
 
-    &.not-in-working-hours {
-      background: lighten($danger, 40%);
+    background: #7a7a7a;
+    color: #222;
+
+    &.close-to-working-hours {
+      background: #a6a6a6;
+    }
+
+    &.in-working-hours {
+      background: #e9e9e9;
     }
 
     .info {
@@ -103,12 +108,10 @@
 
       .time {
         font-weight: 700;
-        color: #111;
       }
 
       .offset {
         font-size: $font-down-2;
-        color: #666;
         margin-left: 0.5em;
       }
     }

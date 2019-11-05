@@ -64,9 +64,17 @@ export default createWidget("discourse-group-timezones", {
           formatedTime: momentTimezone.format("LT"),
           timezone,
           offset,
+          closeToWorkingHours:
+            momentTimezone.hours() >
+              Math.max(settings.working_day_start_hour - 2, 0) &&
+            momentTimezone.hours() < settings.working_day_start_hour &&
+            momentTimezone.hours() <
+              Math.min(settings.working_day_end_hour + 2, 23) &&
+            momentTimezone.hours() > settings.working_day_end_hour &&
+            workingDays.includes(momentTimezone.isoWeekday()),
           inWorkingHours:
-            momentTimezone.hours() >= settings.working_day_start_hour &&
-            momentTimezone.hours() <= settings.working_day_end_hour &&
+            momentTimezone.hours() > settings.working_day_start_hour &&
+            momentTimezone.hours() < settings.working_day_end_hour &&
             workingDays.includes(momentTimezone.isoWeekday()),
           formatedOffset: this._formatOffset(offset),
           members: [member]

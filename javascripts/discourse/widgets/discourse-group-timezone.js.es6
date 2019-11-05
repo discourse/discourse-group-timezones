@@ -5,9 +5,17 @@ export default createWidget("discourse-group-timezone", {
   tagName: "div.group-timezone",
 
   buildClasses(attrs) {
-    if (!attrs.groupedTimezone.inWorkingHours) {
-      return "not-in-working-hours";
+    let classes = [];
+
+    if (attrs.groupedTimezone.closeToWorkingHours) {
+      classes.push("close-to-working-hours");
     }
+
+    if (attrs.groupedTimezone.inWorkingHours) {
+      classes.push("in-working-hours");
+    }
+
+    return classes.join(" ");
   },
 
   template: hbs`
