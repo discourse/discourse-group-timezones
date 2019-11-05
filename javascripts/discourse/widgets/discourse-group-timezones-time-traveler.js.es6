@@ -51,14 +51,6 @@ export default createWidget("discourse-group-timezones-time-traveler", {
       attrs=(hash
         action="onChangeOffset"
         actionParam=-60
-        icon="angle-double-left"
-      )
-    }}
-    {{attach
-      widget="button"
-      attrs=(hash
-        action="onChangeOffset"
-        actionParam=-30
         icon="chevron-left"
       )
     }}
@@ -69,16 +61,8 @@ export default createWidget("discourse-group-timezones-time-traveler", {
       widget="button"
       attrs=(hash
         action="onChangeOffset"
-        actionParam=30
-        icon="chevron-right"
-      )
-    }}
-    {{attach
-      widget="button"
-      attrs=(hash
-        action="onChangeOffset"
         actionParam=60
-        icon="angle-double-right"
+        icon="chevron-right"
       )
     }}
   `
