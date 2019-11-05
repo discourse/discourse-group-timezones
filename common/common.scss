@@ -38,6 +38,10 @@
   }
 }
 
+.mobile-view .group-timezones-slider {
+  display: none;
+}
+
 .group-timezones-body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
