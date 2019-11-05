@@ -133,7 +133,7 @@ export default createWidget("discourse-group-timezones", {
     return `${sign}${hours.replace(/^0(\d)/, "$1")}${minutes.replace(
       /:00$/,
       ""
-    )}`;
+    )}`.replace(/-0/, "&nbsp;");
   },
 
   _userLink({ avatar_template, usernameUrl, username } = member) {
