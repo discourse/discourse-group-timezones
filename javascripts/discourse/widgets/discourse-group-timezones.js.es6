@@ -142,6 +142,7 @@ export default createWidget("discourse-group-timezones", {
       {
         attributes: {
           href: usernameUrl,
+          title: username,
           "data-user-card": username
         }
       },
