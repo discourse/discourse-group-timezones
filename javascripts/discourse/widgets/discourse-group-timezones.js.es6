@@ -150,13 +150,12 @@ export default createWidget("discourse-group-timezones", {
       {
         attributes: {
           href: usernameUrl,
-          title: username,
           "data-user-card": username
         }
       },
       avatarImg("small", {
         template: avatar_template,
-        membername: username
+        username
       })
     );
   }
