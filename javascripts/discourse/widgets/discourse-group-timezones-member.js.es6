@@ -9,16 +9,7 @@ export default createWidget("discourse-group-timezones-member", {
     return attrs.member.onHoliday ? "on-holiday" : "not-on-holiday";
   },
 
-  transform(attrs) {
-    return {
-      emojiUrl: Discourse.getURL(emojiUrlFor("desert_island"))
-    };
-  },
-
   template: hbs`
-    {{#if attrs.member.onHoliday}}
-      <img src={{transformed.emojiUrl}} class="emoji" alt="on-holiday">
-    {{/if}}
     {{attrs.member.userLink}}
   `
 });
