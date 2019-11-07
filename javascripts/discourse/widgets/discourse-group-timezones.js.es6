@@ -162,7 +162,7 @@ export default createWidget("discourse-group-timezones", {
       },
       avatarImg("small", {
         template: avatar_template,
-        username
+        username: name || username
       })
     );
   }
