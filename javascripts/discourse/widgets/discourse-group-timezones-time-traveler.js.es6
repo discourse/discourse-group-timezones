@@ -1,69 +1,34 @@
-import { h } from "virtual-dom";
-import { formatUsername } from "discourse/lib/utilities";
-import { userPath } from "discourse/lib/url";
-import { avatarImg } from "discourse/widgets/post";
 import hbs from "discourse/widgets/hbs-compiler";
-import { cookAsync } from "discourse/lib/text";
-import { getOwner } from "discourse-common/lib/get-owner";
 import { createWidget } from "discourse/widgets/widget";
 
 export default createWidget("discourse-group-timezones-time-traveler", {
-  tagName: "div.group-timezones-slider",
+  tagName: "div.group-timezones-time-traveler",
 
   transform(attrs) {
+    const offsetedTime = moment().add(attrs.localTimeOffset, "minutes");
+
+    if (attrs.localTimeOffset) {
+      offsetedTime.minutes((Math.round(offsetedTime.minutes() / 15) * 15) % 60);
+    }
+
     return {
-      localTimeWithOffset: attrs.localTime
-        .add(attrs.localTimeOffset, "minutes")
-        .format("llll")
+      localTimeWithOffset: offsetedTime.format("HH:mm")
     };
   },
 
-  onChangeOffset(offset) {
-    if (this.attrs.localTimeOffset === 0) {
-      const minutes = this.attrs.localTime.minutes();
-      if (minutes + offset > 30) {
-        offset = 30 - minutes + offset;
-      }
-    }
-
-    this.sendWidgetAction(
-      "onChangeLocalTime",
-      this.attrs.localTimeOffset + offset
-    );
-  },
-
-  onResetOffset() {
-    this.sendWidgetAction("onChangeLocalTime", 0);
-  },
-
   template: hbs`
-    {{#if attrs.localTimeOffset}}
-      {{attach
-        widget="button"
-        attrs=(hash
-          action="onResetOffset"
-          icon="undo"
-        )
-      }}
-    {{/if}}
     {{attach
-      widget="button"
+      widget="discourse-group-timezones-reset"
       attrs=(hash
-        action="onChangeOffset"
-        actionParam=-60
-        icon="chevron-left"
+        id=attrs.id
+        localTimeOffset=attrs.localTimeOffset
       )
     }}
-    <span>
+    <span class="time">
       {{transformed.localTimeWithOffset}}
     </span>
     {{attach
-      widget="button"
-      attrs=(hash
-        action="onChangeOffset"
-        actionParam=60
-        icon="chevron-right"
-      )
+      widget="discourse-group-timezones-slider"
     }}
   `
 });

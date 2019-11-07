@@ -8,7 +8,7 @@
 
   &[data-size="small"],
   &.small {
-    height: 150px;
+    height: 175px;
   }
 
   &[data-size="medium"],
@@ -27,7 +27,7 @@
   width: 100%;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.25em;
+  margin-bottom: 0.5em;
   box-sizing: border-box;
 
   .title {
@@ -36,8 +36,37 @@
   }
 }
 
-.mobile-view .group-timezones-slider {
+.group-timezones-time-traveler {
+  display: flex;
+  align-items: center;
+
+  .time {
+    font-weight: 700;
+    margin-right: 0.5em;
+  }
+}
+
+.mobile-view .group-timezones-traveler {
   display: none;
+}
+
+.group-timezones-slider {
+  width: 148px;
+  margin: 0.25em 0;
+  padding: 0.25em;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  font: inherit;
+  outline: none;
+  color: #069;
+  opacity: 0.8;
+  background: svg-uri(
+      "<svg xmlns='http://www.w3.org/2000/svg' width='2' height='2'><rect fill='#{$tertiary}' x='0' y='0' width='2' height='2'/></svg>"
+    )
+    50% 50% repeat-x;
+  box-sizing: border-box;
+  transition: opacity 0.2s;
 }
 
 .group-timezones-body {
@@ -51,8 +80,6 @@
   .group-timezones-header {
     .title {
       font-weight: 700;
-    }
-    .group-timezones-time-traveler {
     }
   }
 
@@ -132,5 +159,14 @@
         display: inline-block;
       }
     }
+  }
+}
+
+.group-timezones-reset {
+  display: none;
+  margin-right: 0.5em;
+
+  &.is-displayed {
+    display: flex;
   }
 }

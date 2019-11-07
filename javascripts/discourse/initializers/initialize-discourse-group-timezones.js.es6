@@ -47,7 +47,7 @@ export default {
                 "discourse-group-timezones",
                 register,
                 {
-                  id: post.id,
+                  id: `${post.id}-${idx}`,
                   members: groupResult.members,
                   usersOnHoliday,
                   size,

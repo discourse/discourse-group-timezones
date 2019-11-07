@@ -16,6 +16,12 @@ export default createWidget("discourse-group-timezones", {
     return attrs.size;
   },
 
+  buildAttributes(attrs) {
+    return {
+      id: attrs.id
+    };
+  },
+
   defaultState(attrs) {
     return {
       localTimeOffset: 0,
@@ -114,6 +120,7 @@ export default createWidget("discourse-group-timezones", {
     {{attach
       widget="discourse-group-timezones-header"
       attrs=(hash
+        id=attrs.id
         group=attrs.group
         localTime=this.transformed.localTime
         localTimeOffset=state.localTimeOffset
