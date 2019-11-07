@@ -33,6 +33,22 @@ export default createWidget("discourse-group-timezones", {
     this.state.localTimeOffset = offset;
   },
 
+  _addMemberToGroup(member, groupedTimezone) {
+    let filter = this.state.filter;
+
+    if (filter) {
+      filter = filter.toLowerCase();
+      if (
+        member.username.toLowerCase().indexOf(filter) > -1 ||
+        (member.name && member.name.toLowerCase().indexOf(filter) > -1)
+      ) {
+        groupedTimezone.members.push(member);
+      }
+    } else {
+      groupedTimezone.members.push(member);
+    }
+  },
+
   transform(attrs, state) {
     const members = attrs.members || [];
     let groupedTimezones = [];
@@ -45,13 +61,13 @@ export default createWidget("discourse-group-timezones", {
       }
 
       const identifier = parseInt(moment.tz(timezone).format("YYYYMDHm"), 10);
-      const groupedTimezone = groupedTimezones.findBy("identifier", identifier);
+      let groupedTimezone = groupedTimezones.findBy("identifier", identifier);
 
       member.userLink = this._userLink(member);
       member.onHoliday = attrs.usersOnHoliday.includes(member.username);
 
       if (groupedTimezone) {
-        groupedTimezone.members.push(member);
+        this._addMemberToGroup(member, groupedTimezone);
       } else {
         const offset = moment.tz(moment.utc(), timezone).utcOffset();
         const momentTimezone = moment.tz(timezone);
@@ -63,7 +79,7 @@ export default createWidget("discourse-group-timezones", {
           .filter(Boolean)
           .map(x => getIsoWeekday(x));
 
-        groupedTimezones.push({
+        const groupedTimezone = {
           type: "discourse-group-timezone",
           moment: momentTimezone.add(state.localTimeOffset, "minutes"),
           identifier,
@@ -83,12 +99,16 @@ export default createWidget("discourse-group-timezones", {
             momentTimezone.hours() < settings.working_day_end_hour &&
             workingDays.includes(momentTimezone.isoWeekday()),
           formatedOffset: this._formatOffset(offset),
-          members: [member]
-        });
+          members: []
+        };
+        groupedTimezones.push(groupedTimezone);
+        this._addMemberToGroup(member, groupedTimezone);
       }
     });
 
-    groupedTimezones = groupedTimezones.sortBy("offset");
+    groupedTimezones = groupedTimezones
+      .sortBy("offset")
+      .filter(group => group.members.length);
 
     let newDayIndex = 0;
     groupedTimezones.forEach((groupedTimezone, index) => {
@@ -114,6 +134,10 @@ export default createWidget("discourse-group-timezones", {
       groupedTimezones,
       localTime: moment()
     };
+  },
+
+  onChangeFilter(filter) {
+    this.state.filter = filter && filter.length ? filter : null;
   },
 
   template: hbs`
@@ -151,7 +175,7 @@ export default createWidget("discourse-group-timezones", {
     )}`.replace(/-0/, "&nbsp;");
   },
 
-  _userLink({ avatar_template, usernameUrl, username } = member) {
+  _userLink({ avatar_template, usernameUrl, username, name } = member) {
     return h(
       "a",
       {

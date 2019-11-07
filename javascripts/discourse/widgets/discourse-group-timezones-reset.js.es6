@@ -23,10 +23,17 @@ export default createWidget("discourse-group-timezones-reset", {
     }
   },
 
+  transform(attrs) {
+    return {
+      isDisabled: attrs.localTimeOffset === 0
+    };
+  },
+
   template: hbs`
     {{attach
       widget="button"
       attrs=(hash
+        disabled=this.transformed.isDisabled
         action="onResetOffset"
         icon="undo"
       )

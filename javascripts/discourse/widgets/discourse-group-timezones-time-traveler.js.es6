@@ -17,18 +17,18 @@ export default createWidget("discourse-group-timezones-time-traveler", {
   },
 
   template: hbs`
+    <span class="time">
+      {{transformed.localTimeWithOffset}}
+    </span>
+    {{attach
+      widget="discourse-group-timezones-slider"
+    }}
     {{attach
       widget="discourse-group-timezones-reset"
       attrs=(hash
         id=attrs.id
         localTimeOffset=attrs.localTimeOffset
       )
-    }}
-    <span class="time">
-      {{transformed.localTimeWithOffset}}
-    </span>
-    {{attach
-      widget="discourse-group-timezones-slider"
     }}
   `
 });

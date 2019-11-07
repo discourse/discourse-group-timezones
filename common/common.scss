@@ -51,7 +51,7 @@
 }
 
 .group-timezones-slider {
-  width: 148px;
+  width: 120px;
   margin: 0.25em 0;
   padding: 0.25em;
   -webkit-appearance: none;
@@ -163,10 +163,11 @@
 }
 
 .group-timezones-reset {
-  display: none;
-  margin-right: 0.5em;
+  display: flex;
+  margin-left: 0.5em;
+}
 
-  &.is-displayed {
-    display: flex;
-  }
+.group-timezones-filter[type="text"] {
+  margin: 0;
+  width: 120px;
 }
