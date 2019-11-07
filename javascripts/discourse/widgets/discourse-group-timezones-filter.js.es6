@@ -14,7 +14,8 @@ export default createWidget("discourse-group-timezones-filter", {
 
   buildAttributes(attrs) {
     return {
-      type: "text"
+      type: "text",
+      placeholder: I18n.t(themePrefix("search"))
     };
   }
 });
