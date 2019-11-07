@@ -49,6 +49,13 @@ export default createWidget("discourse-group-timezones", {
     }
   },
 
+  _roundMoment(date) {
+    if (this.state.localTimeOffset) {
+      date.minutes((Math.round(date.minutes() / 15) * 15) % 60);
+    }
+    return date;
+  },
+
   transform(attrs, state) {
     const members = attrs.members || [];
     let groupedTimezones = [];
@@ -70,7 +77,7 @@ export default createWidget("discourse-group-timezones", {
         this._addMemberToGroup(member, groupedTimezone);
       } else {
         const offset = moment.tz(moment.utc(), timezone).utcOffset();
-        const momentTimezone = moment.tz(timezone);
+        const momentTimezone = this._roundMoment(moment.tz(timezone));
         const enMoment = moment().locale("en");
         const getIsoWeekday = day =>
           enMoment.localeData()._weekdays.indexOf(day) || 7;
