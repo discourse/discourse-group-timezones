@@ -1,3 +1,4 @@
+import throttle from "discourse/lib/throttle";
 import { createWidget } from "discourse/widgets/widget";
 
 export default createWidget("discourse-group-timezones-slider", {
@@ -6,8 +7,12 @@ export default createWidget("discourse-group-timezones-slider", {
   input(event) {
     const value = parseInt(event.target.value, 10);
     const offset = value * 15;
-    this.sendWidgetAction("onChangeLocalTime", offset);
+    this.changOffsetThrottler(offset);
   },
+
+  changOffsetThrottler: throttle(function(offset) {
+    this.sendWidgetAction("onChangeLocalTime", offset);
+  }, 100),
 
   buildAttributes(attrs) {
     return {
