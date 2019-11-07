@@ -2,9 +2,13 @@
 .group-timezones {
   display: flex;
   width: 100%;
-  height: 325px;
   box-sizing: border-box;
   flex-direction: column;
+
+  &[data-size="auto"],
+  &.auto {
+    height: auto;
+  }
 
   &[data-size="small"],
   &.small {

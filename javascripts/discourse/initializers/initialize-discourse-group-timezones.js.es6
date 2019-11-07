@@ -17,16 +17,17 @@ export default {
 
       function attachGroupTimezones($elem, helper) {
         const $groupTimezones = $(".d-wrap[data-wrap=group-timezones]", $elem);
+
         if (!$groupTimezones.length) {
           return;
         }
 
-        if (!helper) {
-          return;
+        let id = 1;
+        if (helper) {
+          const post = helper.getModel();
+          api.preventCloak(post.id);
+          id = post.id;
         }
-
-        const post = helper.getModel();
-        api.preventCloak(post.id);
 
         $groupTimezones.each((idx, groupTimezone) => {
           const group = groupTimezone.getAttribute("data-group");
@@ -47,7 +48,7 @@ export default {
                 "discourse-group-timezones",
                 register,
                 {
-                  id: `${post.id}-${idx}`,
+                  id: `${id}-${idx}`,
                   members: groupResult.members,
                   usersOnHoliday,
                   size,
@@ -68,6 +69,16 @@ export default {
 
       api.decorateCooked(attachGroupTimezones, {
         id: "discourse-group-timezones"
+      });
+
+      api.onPageChange((url, b) => {
+        const match = url.match(/\/g\/(\w+)/);
+        if (match.length && match[1]) {
+          const $elem = $(".group-bio");
+          if ($elem.length) {
+            attachGroupTimezones($elem);
+          }
+        }
       });
 
       api.cleanupStream(cleanUp);
