@@ -1,3 +1,13 @@
+$bg-normal: dark-light-choose(lighten($tertiary, 55%), darken($tertiary, 25%));
+$bg-close-to-working-hours: dark-light-choose(
+  desaturate(lighten($tertiary, 45%), 15%),
+  darken($tertiary, 15%)
+);
+$bg-in-working-hours: dark-light-choose(
+  desaturate(lighten($tertiary, 40%), 20%),
+  darken($tertiary, 10%)
+);
+
 .d-wrap[data-wrap="group-timezones"],
 .group-timezones {
   display: flex;
@@ -99,8 +109,8 @@
   .group-timezone-new-day {
     align-items: center;
     justify-content: space-between;
-    background: #222;
-    color: #ddd;
+    color: inherit;
+    font-size: $font-down-1;
 
     .before {
       margin-right: auto;
@@ -114,6 +124,11 @@
   }
 
   .group-timezone {
+    color: $primary;
+    background-color: $bg-normal;
+    transition: opacity 0.4s;
+    opacity: 0.5;
+
     &:first-child {
       margin-left: 0;
     }
@@ -122,15 +137,18 @@
       margin-right: 0;
     }
 
-    background: #7a7a7a;
-    color: #222;
-
     &.close-to-working-hours {
-      background: #a6a6a6;
+      background-color: $bg-close-to-working-hours;
+      opacity: 0.7;
     }
 
     &.in-working-hours {
-      background: #e9e9e9;
+      background-color: $bg-in-working-hours;
+      opacity: 1;
+    }
+
+    &:hover {
+      opacity: 1;
     }
 
     .info {
