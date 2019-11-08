@@ -2,7 +2,6 @@ import WidgetGlue from "discourse/widgets/glue";
 import { getRegister } from "discourse-common/lib/get-owner";
 import { withPluginApi } from "discourse/lib/plugin-api";
 import { ajax } from "discourse/lib/ajax";
-import { popupAjaxError } from "discourse/lib/ajax-error";
 
 export default {
   name: "discourse-group-timezones",
@@ -13,7 +12,6 @@ export default {
       const usersOnHoliday =
         api.container.lookup("site:main").users_on_holiday || [];
       let _glued = [];
-      let _interval = null;
 
       function attachGroupTimezones($elem, helper) {
         const $groupTimezones = $(".d-wrap[data-wrap=group-timezones]", $elem);
@@ -71,9 +69,9 @@ export default {
         id: "discourse-group-timezones"
       });
 
-      api.onPageChange((url, b) => {
+      api.onPageChange(url => {
         const match = url.match(/\/g\/(\w+)/);
-        if (match.length && match[1]) {
+        if (match && match.length && match[1]) {
           const $elem = $(".group-bio");
           if ($elem.length) {
             attachGroupTimezones($elem);
