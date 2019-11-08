@@ -1,18 +1,19 @@
 import hbs from "discourse/widgets/hbs-compiler";
 import { createWidget } from "discourse/widgets/widget";
+import roundMinutes from "discourse/lib/round-minutes";
 
 export default createWidget("discourse-group-timezones-time-traveler", {
   tagName: "div.group-timezones-time-traveler",
 
   transform(attrs) {
-    const offsetedTime = moment().add(attrs.localTimeOffset, "minutes");
+    const date = moment().add(attrs.localTimeOffset, "minutes");
 
     if (attrs.localTimeOffset) {
-      offsetedTime.minutes((Math.round(offsetedTime.minutes() / 15) * 15) % 60);
+      date.minutes(roundMinutes(date.minutes()));
     }
 
     return {
-      localTimeWithOffset: offsetedTime.format("HH:mm")
+      localTimeWithOffset: date.format("HH:mm")
     };
   },
 

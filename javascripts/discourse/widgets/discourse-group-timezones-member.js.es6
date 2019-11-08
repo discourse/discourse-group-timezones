@@ -1,14 +1,32 @@
-import hbs from "discourse/widgets/hbs-compiler";
+import { h } from "virtual-dom";
+import { avatarImg } from "discourse/widgets/post";
 import { createWidget } from "discourse/widgets/widget";
+import { formatUsername } from "discourse/lib/utilities";
 
 export default createWidget("discourse-group-timezones-member", {
   tagName: "li.group-timezones-member",
 
   buildClasses(attrs) {
-    return attrs.member.onHoliday ? "on-holiday" : "not-on-holiday";
+    return attrs.usersOnHoliday.includes(attrs.member.username)
+      ? "on-holiday"
+      : "not-on-holiday";
   },
 
-  template: hbs`
-    {{attrs.member.userLink}}
-  `
+  html(attrs) {
+    const { name, username, avatar_template } = attrs.member;
+
+    return h(
+      "a",
+      {
+        attributes: {
+          class: "group-timezones-member-avatar",
+          "data-user-card": username
+        }
+      },
+      avatarImg("small", {
+        template: avatar_template,
+        username: name || formatUsername(username)
+      })
+    );
+  }
 });

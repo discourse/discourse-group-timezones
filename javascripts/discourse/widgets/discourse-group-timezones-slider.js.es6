@@ -11,8 +11,8 @@ export default createWidget("discourse-group-timezones-slider", {
   },
 
   changOffsetThrottler: throttle(function(offset) {
-    this.sendWidgetAction("onChangeLocalTime", offset);
-  }, 100),
+    this.sendWidgetAction("onChangeCurrentUserTimeOffset", offset);
+  }, 75),
 
   buildAttributes(attrs) {
     return {

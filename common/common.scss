@@ -166,13 +166,11 @@ $bg-in-working-hours: dark-light-choose(
       }
     }
 
-    .members {
+    .group-timezones-members {
       padding: 0;
       margin: 0.1em 0;
 
       .group-timezones-member {
-        position: relative;
-
         &.on-holiday {
           opacity: 0.4;
         }

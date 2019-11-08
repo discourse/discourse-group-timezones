@@ -1,5 +1,6 @@
 working_day_start_hour: 8
 working_day_end_hour: 17
+close_to_working_day_hours_extension: 2
 working_days:
   type: list
   default: Monday|Tuesday|Wednesday|Thursday|Friday

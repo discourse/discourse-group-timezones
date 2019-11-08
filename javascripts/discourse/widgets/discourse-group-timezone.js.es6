@@ -5,7 +5,7 @@ export default createWidget("discourse-group-timezone", {
   tagName: "div.group-timezone",
 
   buildClasses(attrs) {
-    let classes = [];
+    const classes = [];
 
     if (attrs.groupedTimezone.closeToWorkingHours) {
       classes.push("close-to-working-hours");
@@ -18,20 +18,27 @@ export default createWidget("discourse-group-timezone", {
     return classes.join(" ");
   },
 
+  transform(attrs) {
+    return {
+      formatedTime: attrs.groupedTimezone.nowWithOffset.format("LT")
+    };
+  },
+
   template: hbs`
     <div class="info">
       <span class="time">
-        {{attrs.groupedTimezone.formatedTime}}
+        {{transformed.formatedTime}}
       </span>
       <span class="offset" title="UTC offset">
-        {{{attrs.groupedTimezone.formatedOffset}}}
+        {{{attrs.groupedTimezone.utcOffset}}}
       </span>
     </div>
-    <ul class="members">
+    <ul class="group-timezones-members">
       {{#each attrs.groupedTimezone.members as |member|}}
         {{attach
           widget="discourse-group-timezones-member"
           attrs=(hash
+            usersOnHoliday=attrs.usersOnHoliday
             member=member
           )
         }}
