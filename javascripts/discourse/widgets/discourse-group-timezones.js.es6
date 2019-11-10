@@ -1,6 +1,6 @@
 import hbs from "discourse/widgets/hbs-compiler";
 import { createWidget } from "discourse/widgets/widget";
-import roundMinutes from "discourse/lib/round-minutes";
+import roundTime from "discourse/lib/round-time";
 
 export default createWidget("discourse-group-timezones", {
   tagName: "div.group-timezones",
@@ -132,7 +132,7 @@ export default createWidget("discourse-group-timezones", {
 
   _roundMoment(date) {
     if (this.state.localTimeOffset) {
-      date.minutes(roundMinutes(date.minutes()));
+      date = roundTime(date);
     }
 
     return date;
@@ -152,9 +152,10 @@ export default createWidget("discourse-group-timezones", {
   },
 
   _inWorkingHours(moment, workingDays) {
+    const hours = moment.hours();
     return (
-      moment.hours() > settings.working_day_start_hour &&
-      moment.hours() < settings.working_day_end_hour &&
+      hours > settings.working_day_start_hour &&
+      hours < settings.working_day_end_hour &&
       workingDays.includes(moment.isoWeekday())
     );
   },
