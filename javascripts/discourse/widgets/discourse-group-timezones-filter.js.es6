@@ -1,5 +1,5 @@
-import throttle from "discourse/lib/throttle";
 import { createWidget } from "discourse/widgets/widget";
+import { throttle } from "@ember/runloop";
 
 export default createWidget("discourse-group-timezones-filter", {
   tagName: "input.group-timezones-filter",
@@ -8,9 +8,11 @@ export default createWidget("discourse-group-timezones-filter", {
     this.changeFilterThrottler(event.target.value);
   },
 
-  changeFilterThrottler: throttle(function(filter) {
-    this.sendWidgetAction("onChangeFilter", filter);
-  }, 100),
+  changeFilterThrottler(filter) {
+    throttle(this, function() {
+      this.sendWidgetAction("onChangeFilter", filter);
+    }, 100);
+  },
 
   buildAttributes(attrs) {
     return {

@@ -1,5 +1,5 @@
-import throttle from "discourse/lib/throttle";
 import { createWidget } from "discourse/widgets/widget";
+import { throttle } from "@ember/runloop";
 
 export default createWidget("discourse-group-timezones-slider", {
   tagName: "input.group-timezones-slider",
@@ -12,9 +12,11 @@ export default createWidget("discourse-group-timezones-slider", {
     this._handleSliderEvent(event);
   },
 
-  changOffsetThrottler: throttle(function(offset) {
-    this.sendWidgetAction("onChangeCurrentUserTimeOffset", offset);
-  }, 75),
+  changeOffsetThrottler(filter) {
+    throttle(this, function() {
+      this.sendWidgetAction("onChangeCurrentUserTimeOffset", offset);
+    }, 75);
+  },
 
   buildAttributes(attrs) {
     return {
@@ -29,6 +31,6 @@ export default createWidget("discourse-group-timezones-slider", {
   _handleSliderEvent(event) {
     const value = parseInt(event.target.value, 10);
     const offset = value * 15;
-    this.changOffsetThrottler(offset);
+    this.changeOffsetThrottler(offset);
   }
 });
