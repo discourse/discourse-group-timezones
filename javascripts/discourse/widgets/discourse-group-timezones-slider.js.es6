@@ -12,10 +12,14 @@ export default createWidget("discourse-group-timezones-slider", {
     this._handleSliderEvent(event);
   },
 
-  changeOffsetThrottler(filter) {
-    throttle(this, function() {
-      this.sendWidgetAction("onChangeCurrentUserTimeOffset", offset);
-    }, 75);
+  changeOffsetThrottler(offset) {
+    throttle(
+      this,
+      function() {
+        this.sendWidgetAction("onChangeCurrentUserTimeOffset", offset);
+      },
+      75
+    );
   },
 
   buildAttributes(attrs) {
