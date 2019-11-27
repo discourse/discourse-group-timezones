@@ -22,7 +22,7 @@ $bg-in-working-hours: dark-light-choose(
 
   &[data-size="small"],
   &.small {
-    height: 175px;
+    height: 200px;
   }
 
   &[data-size="medium"],
@@ -34,6 +34,8 @@ $bg-in-working-hours: dark-light-choose(
   &.large {
     height: 600px;
   }
+
+  border: 1px solid $primary-low;
 }
 
 .group-timezones-header {
@@ -41,11 +43,13 @@ $bg-in-working-hours: dark-light-choose(
   width: 100%;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.5em;
   box-sizing: border-box;
+  padding: 0.5em;
+  border-bottom: 1px solid $primary-low;
+  background: $primary-very-low;
 
   .title {
-    font-weight: bold;
+    font-weight: 700;
     text-transform: capitalize;
   }
 }
@@ -91,12 +95,7 @@ $bg-in-working-hours: dark-light-choose(
   grid-gap: 0.25em;
   box-sizing: border-box;
   overflow-y: auto;
-
-  .group-timezones-header {
-    .title {
-      font-weight: 700;
-    }
-  }
+  padding: 0.25em;
 
   .group-timezone,
   .group-timezone-new-day {
